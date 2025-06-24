@@ -1,0 +1,42 @@
+version: '3.8'
+
+volumes:
+  pg_fitsphere:
+  redis_data:
+  minio_data:
+
+services:
+  fitsphere:
+    image: postgres
+    restart: always
+    environment:
+      - POSTGRES_USER=${POSTGRES_USERNAME}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DATABASE}
+    volumes:
+      - pg_fitsphere:/var/lib/postgresql/data
+    ports:
+      - "127.0.0.1:5442:5432"
+
+  redis:
+    image: redis:latest
+    restart: always
+    container_name: redis
+    volumes:
+      - redis_data:/data
+    ports:
+      - "127.0.0.1:6379:6379"
+
+  minio:
+    image: minio/minio:latest
+    container_name: minio
+    restart: always
+    ports:
+      - "127.0.0.1:9000:9000"
+      - "127.0.0.1:9001:9001"
+    environment:
+      - MINIO_ROOT_USER=${MINIO_ROOT_USER}
+      - MINIO_ROOT_PASSWORD=${MINIO_ROOT_PASSWORD}
+    command: server --console-address ":9001" /data
+    volumes:
+      - minio_data:/data
