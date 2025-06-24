@@ -17,6 +17,41 @@ import java.util.stream.Collectors;
 @RestControllerAdvice
 public class ControllerAdvice {
 
+    @ExceptionHandler(ArticleNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ExceptionBody handleArticleNotFoundException(ArticleNotFoundException e) {
+        LoggerUtil.logError("Article not found: " + e.getMessage(), e);
+        return new ExceptionBody(e.getMessage());
+    }
+
+    @ExceptionHandler(CategoryNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ExceptionBody handleCategoryNotFoundException(CategoryNotFoundException e) {
+        LoggerUtil.logError("Category not found: " + e.getMessage(), e);
+        return new ExceptionBody(e.getMessage());
+    }
+
+    @ExceptionHandler(GoalNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ExceptionBody handleGoalNotFoundExceptionException(GoalNotFoundException e) {
+        LoggerUtil.logError("Goal not found: " + e.getMessage(), e);
+        return new ExceptionBody(e.getMessage());
+    }
+
+    @ExceptionHandler(RecipeNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ExceptionBody handleRecipeNotFoundExceptionException(RecipeNotFoundException e) {
+        LoggerUtil.logError("Recipe not found: " + e.getMessage(), e);
+        return new ExceptionBody(e.getMessage());
+    }
+
+    @ExceptionHandler(WorkoutNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ExceptionBody handleWorkoutNotFoundExceptionException(WorkoutNotFoundException e) {
+        LoggerUtil.logError("Workout not found: " + e.getMessage(), e);
+        return new ExceptionBody(e.getMessage());
+    }
+
     @ExceptionHandler(UserAlreadyExistsException.class)
     @ResponseStatus(HttpStatus.CONFLICT)
     public ExceptionBody handleUserAlreadyExists(UserAlreadyExistsException e) {
@@ -28,6 +63,13 @@ public class ControllerAdvice {
     @ResponseStatus(HttpStatus.CONFLICT)
     public ExceptionBody handleEmailAlreadyExists(EmailAlreadyExistsException e) {
         LoggerUtil.logError("Email already exists: " + e.getMessage(), e);
+        return new ExceptionBody(e.getMessage());
+    }
+
+    @ExceptionHandler(UserNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ExceptionBody handleUserNotFoundException(UserNotFoundException e) {
+        LoggerUtil.logError("User not found: " + e.getMessage(), e);
         return new ExceptionBody(e.getMessage());
     }
 
