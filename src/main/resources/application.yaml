@@ -1,0 +1,44 @@
+server:
+  port: 8080
+preliquibase:
+  enabled: true
+  scripts:
+    - classpath:db/migration/preliquibase/postgresql.sql
+spring:
+  config:
+    import: optional:file:.env[.properties]
+  application:
+    name: Fit_REST
+  cache:
+    type: redis
+    cache-names: redis-cache
+  data:
+    redis:
+      host: ${REDIS_HOST}
+      port: 6379
+      password:
+  datasource:
+    url: jdbc:postgresql://${HOST}:5442/${POSTGRES_DATABASE}?currentSchema=${POSTGRES_SCHEMA}
+    username: ${POSTGRES_USERNAME}
+    password: ${POSTGRES_PASSWORD}
+    driverClassName: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    open-in-view: true
+  liquibase:
+    change-log: classpath:liquibase/db.changelog.yaml
+    enabled: true
+    default-schema: fitsphere
+security:
+  jwt:
+    secret_key: ${JWT_SECRET}
+    access_token_expiration: ${ACCESS_TOKEN_EXPIRATION}
+    refresh_token_expiration: ${REFRESH_TOKEN_EXPIRATION}
+springdoc:
+  override-with-generic-response: false
+minio:
+  url: http://localhost:9000
+  access-key: ${MINIO_ROOT_USER}
+  secret-key: ${MINIO_ROOT_PASSWORD}
+  bucket: fit-bucket
