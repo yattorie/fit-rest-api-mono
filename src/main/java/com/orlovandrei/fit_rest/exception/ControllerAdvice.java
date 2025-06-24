@@ -17,10 +17,31 @@ import java.util.stream.Collectors;
 @RestControllerAdvice
 public class ControllerAdvice {
 
+    @ExceptionHandler(MealPlanNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ExceptionBody handleMealPlanNotFoundException(MealPlanNotFoundException e) {
+        LoggerUtil.logError("Meal plan not found: " + e.getMessage(), e);
+        return new ExceptionBody(e.getMessage());
+    }
+
+    @ExceptionHandler(IncompleteProfileException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ExceptionBody handleIncompleteProfileException(IncompleteProfileException e) {
+        LoggerUtil.logError("Incomplete profile: " + e.getMessage(), e);
+        return new ExceptionBody(e.getMessage());
+    }
+
     @ExceptionHandler(ArticleNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ExceptionBody handleArticleNotFoundException(ArticleNotFoundException e) {
         LoggerUtil.logError("Article not found: " + e.getMessage(), e);
+        return new ExceptionBody(e.getMessage());
+    }
+
+    @ExceptionHandler(CommentNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ExceptionBody handleCommentNotFoundException(CommentNotFoundException e) {
+        LoggerUtil.logError("Comment not found: " + e.getMessage(), e);
         return new ExceptionBody(e.getMessage());
     }
 
