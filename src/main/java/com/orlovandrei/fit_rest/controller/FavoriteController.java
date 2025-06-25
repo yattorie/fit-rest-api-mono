@@ -1,0 +1,62 @@
+package com.orlovandrei.fit_rest.controller;
+
+import com.orlovandrei.fit_rest.dto.article.ArticleDto;
+import com.orlovandrei.fit_rest.dto.recipe.RecipeDto;
+import com.orlovandrei.fit_rest.dto.workout.WorkoutDto;
+import com.orlovandrei.fit_rest.service.FavoriteService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+
+@RestController
+@RequiredArgsConstructor
+@RequestMapping("/api/favorites")
+public class FavoriteController {
+
+    private final FavoriteService favoriteService;
+
+    @PostMapping("/articles/{id}")
+    public ResponseEntity<?> toggleArticle(@PathVariable Long id,
+                                           @AuthenticationPrincipal UserDetails userDetails) {
+        favoriteService.toggleFavoriteArticle(id, userDetails.getUsername());
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/recipes/{id}")
+    public ResponseEntity<?> toggleRecipe(@PathVariable Long id,
+                                          @AuthenticationPrincipal UserDetails userDetails) {
+        favoriteService.toggleFavoriteRecipe(id, userDetails.getUsername());
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/workouts/{id}")
+    public ResponseEntity<?> toggleWorkout(@PathVariable Long id,
+                                           @AuthenticationPrincipal UserDetails userDetails) {
+        favoriteService.toggleFavoriteWorkout(id, userDetails.getUsername());
+        return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/articles")
+    public ResponseEntity<List<ArticleDto>> getFavArticles(@AuthenticationPrincipal UserDetails userDetails) {
+        return ResponseEntity.ok(favoriteService.getFavoriteArticles(userDetails.getUsername()));
+    }
+
+    @GetMapping("/recipes")
+    public ResponseEntity<List<RecipeDto>> getFavRecipes(@AuthenticationPrincipal UserDetails userDetails) {
+        return ResponseEntity.ok(favoriteService.getFavoriteRecipes(userDetails.getUsername()));
+    }
+
+    @GetMapping("/workouts")
+    public ResponseEntity<List<WorkoutDto>> getFavWorkouts(@AuthenticationPrincipal UserDetails userDetails) {
+        return ResponseEntity.ok(favoriteService.getFavoriteWorkouts(userDetails.getUsername()));
+    }
+}
+
