@@ -35,7 +35,7 @@ public class MinioServiceImpl implements MinioService {
     @Override
     public String uploadRecipeImage(MultipartFile file, Long recipeId) {
         Recipe recipe = recipeRepository.findById(recipeId)
-                .orElseThrow(() -> new RecipeNotFoundException(Messages.RECIPE_NOT_FOUND.getMessage()));
+                .orElseThrow(() -> new RecipeNotFoundException(Messages.RECIPE_NOT_FOUND_BY_ID.getMessage() + recipeId));
 
         String filename = "recipes/" + recipeId + "/" + UUID.randomUUID() + "-" + file.getOriginalFilename();
 
@@ -63,7 +63,7 @@ public class MinioServiceImpl implements MinioService {
     @Override
     public String uploadArticleImage(MultipartFile file, Long articleId) {
         Article article = articleRepository.findById(articleId)
-                .orElseThrow(() -> new ArticleNotFoundException(Messages.ARTICLE_NOT_FOUND.getMessage()));
+                .orElseThrow(() -> new ArticleNotFoundException(Messages.ARTICLE_NOT_FOUND_BY_ID.getMessage() + articleId));
 
         String filename = "articles/" + articleId + "/" + UUID.randomUUID() + "-" + file.getOriginalFilename();
 
