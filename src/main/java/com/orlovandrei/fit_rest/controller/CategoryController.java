@@ -4,6 +4,8 @@ import com.orlovandrei.fit_rest.dto.category.CategoryDto;
 import com.orlovandrei.fit_rest.dto.category.CreateCategoryRequest;
 import com.orlovandrei.fit_rest.dto.category.UpdateCategoryRequest;
 import com.orlovandrei.fit_rest.service.CategoryService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -22,11 +24,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/categories")
+@Tag(name = "Category Controller", description = "Operations for managing article categories")
 public class CategoryController {
 
     private final CategoryService categoryService;
 
     @GetMapping
+    @Operation(summary = "Get all categories")
     public ResponseEntity<Page<CategoryDto>> getAllPaged(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size) {
@@ -34,17 +38,20 @@ public class CategoryController {
     }
 
     @GetMapping("/{id}")
+    @Operation(summary = "Get category by id")
     public ResponseEntity<CategoryDto> getById(@PathVariable Long id) {
         return ResponseEntity.ok(categoryService.getById(id));
     }
 
     @PostMapping
     @PreAuthorize("hasRole('ADMIN')")
+    @Operation(summary = "Create a new category")
     public ResponseEntity<CategoryDto> create(@RequestBody @Valid CreateCategoryRequest request) {
         return ResponseEntity.ok(categoryService.create(request));
     }
 
     @PutMapping("/{id}")
+    @Operation(summary = "Update an existing category")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<CategoryDto> update(@PathVariable Long id,
                                               @RequestBody @Valid UpdateCategoryRequest request) {
@@ -52,6 +59,7 @@ public class CategoryController {
     }
 
     @DeleteMapping("/{id}")
+    @Operation(summary = "Delete a category")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         categoryService.delete(id);

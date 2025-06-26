@@ -4,6 +4,8 @@ import com.orlovandrei.fit_rest.dto.workout.CreateWorkoutRequest;
 import com.orlovandrei.fit_rest.dto.workout.UpdateWorkoutRequest;
 import com.orlovandrei.fit_rest.dto.workout.WorkoutDto;
 import com.orlovandrei.fit_rest.service.WorkoutService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -23,12 +25,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/workouts")
+@Tag(name = "Workout Controller", description = "Operations for managing workout programs")
 public class WorkoutController {
 
     private final WorkoutService workoutService;
 
     @PostMapping
     @PreAuthorize("hasRole('ADMIN')")
+    @Operation(summary = "Create a new workout")
     public ResponseEntity<WorkoutDto> create(
             @RequestBody @Valid CreateWorkoutRequest request) {
         return ResponseEntity.status(HttpStatus.CREATED)
@@ -36,6 +40,7 @@ public class WorkoutController {
     }
 
     @GetMapping
+    @Operation(summary = "Get all workouts")
     public ResponseEntity<Page<WorkoutDto>> getAll(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size) {
@@ -43,12 +48,14 @@ public class WorkoutController {
     }
 
     @GetMapping("/{id}")
+    @Operation(summary = "Get workout by id")
     public ResponseEntity<WorkoutDto> getById(@PathVariable Long id) {
         return ResponseEntity.ok(workoutService.getById(id));
     }
 
     @PutMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
+    @Operation(summary = "Update a workout")
     public ResponseEntity<WorkoutDto> update(
             @PathVariable Long id,
             @RequestBody @Valid UpdateWorkoutRequest request) {
@@ -57,6 +64,7 @@ public class WorkoutController {
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
+    @Operation(summary = "Delete a workout")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         workoutService.delete(id);
         return ResponseEntity.noContent().build();

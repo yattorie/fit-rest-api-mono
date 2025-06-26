@@ -3,6 +3,8 @@ package com.orlovandrei.fit_rest.controller;
 import com.orlovandrei.fit_rest.dto.meal.CreateMealPlanRequest;
 import com.orlovandrei.fit_rest.dto.meal.MealPlanDto;
 import com.orlovandrei.fit_rest.service.MealPlanService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -23,12 +25,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/meal-plans")
+@Tag(name = "Meal Plan Controller", description = "Operations for managing user meal plans")
 public class MealPlanController {
 
     private final MealPlanService mealPlanService;
 
     @GetMapping
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    @Operation(summary = "Get all meal plans")
     public ResponseEntity<Page<MealPlanDto>> getAll(
             @AuthenticationPrincipal UserDetails userDetails,
             @RequestParam(defaultValue = "0") int page,
@@ -38,6 +42,7 @@ public class MealPlanController {
 
     @GetMapping("/{id}")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    @Operation(summary = "Get meal plan by id")
     public ResponseEntity<MealPlanDto> getById(
             @PathVariable Long id,
             @AuthenticationPrincipal UserDetails userDetails) {
@@ -45,6 +50,7 @@ public class MealPlanController {
     }
 
     @PostMapping
+    @Operation(summary = "Create a new meal plan")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<MealPlanDto> create(
             @RequestBody @Valid CreateMealPlanRequest request,
@@ -53,6 +59,7 @@ public class MealPlanController {
     }
 
     @PutMapping("/{id}")
+    @Operation(summary = "Update a meal plan")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<MealPlanDto> update(
             @PathVariable Long id,
@@ -62,6 +69,7 @@ public class MealPlanController {
     }
 
     @DeleteMapping("/{id}")
+    @Operation(summary = "Delete a meal plan")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<Void> delete(
             @PathVariable Long id,

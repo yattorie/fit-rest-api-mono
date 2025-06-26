@@ -4,6 +4,8 @@ import com.orlovandrei.fit_rest.dto.comment.CommentDto;
 import com.orlovandrei.fit_rest.dto.comment.CreateCommentRequest;
 import com.orlovandrei.fit_rest.dto.comment.UpdateCommentRequest;
 import com.orlovandrei.fit_rest.service.CommentService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -25,12 +27,14 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/articles")
+@Tag(name = "Comment Controller", description = "Operations for managing article comments")
 public class CommentController {
 
     private final CommentService commentService;
 
     @PostMapping("/{articleId}/comments")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    @Operation(summary = "Create a new comment")
     public ResponseEntity<CommentDto> create(
             @PathVariable Long articleId,
             @RequestBody @Valid CreateCommentRequest request,
@@ -40,17 +44,20 @@ public class CommentController {
     }
 
     @GetMapping("/{articleId}/comments")
+    @Operation(summary = "Get comments by article")
     public ResponseEntity<List<CommentDto>> getByArticle(@PathVariable Long articleId) {
         return ResponseEntity.ok(commentService.getByArticleId(articleId));
     }
 
     @GetMapping("/comments/{id}")
+    @Operation(summary = "Get comment by id")
     public ResponseEntity<CommentDto> getById(@PathVariable Long id) {
         return ResponseEntity.ok(commentService.getById(id));
     }
 
     @PutMapping("/comments/{id}")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    @Operation(summary = "Update a comment")
     public ResponseEntity<CommentDto> update(
             @PathVariable Long id,
             @RequestBody @Valid UpdateCommentRequest request,
@@ -60,6 +67,7 @@ public class CommentController {
 
     @DeleteMapping("/comments/{id}")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    @Operation(summary = "Delete a comment")
     public ResponseEntity<Void> delete(
             @PathVariable Long id,
             @AuthenticationPrincipal UserDetails userDetails) {

@@ -5,6 +5,8 @@ import com.orlovandrei.fit_rest.dto.recipe.RecipeDto;
 import com.orlovandrei.fit_rest.dto.recipe.UpdateRecipeRequest;
 import com.orlovandrei.fit_rest.service.MinioService;
 import com.orlovandrei.fit_rest.service.RecipeService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -25,6 +27,7 @@ import org.springframework.web.multipart.MultipartFile;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/recipes")
+@Tag(name = "Recipe Controller", description = "Operations for managing recipes")
 public class RecipeController {
 
     private final RecipeService recipeService;
@@ -32,12 +35,14 @@ public class RecipeController {
 
     @PostMapping
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    @Operation(summary = "Create a new recipe")
     public ResponseEntity<RecipeDto> create(@RequestBody @Valid CreateRecipeRequest request) {
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(recipeService.create(request));
     }
 
     @GetMapping
+    @Operation(summary = "Get all recipes")
     public ResponseEntity<Page<RecipeDto>> getAll(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size) {
@@ -46,12 +51,14 @@ public class RecipeController {
 
 
     @GetMapping("/{id}")
+    @Operation(summary = "Get recipe by id")
     public ResponseEntity<RecipeDto> getById(@PathVariable Long id) {
         return ResponseEntity.ok(recipeService.getById(id));
     }
 
     @PostMapping("/{id}/image")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    @Operation(summary = "Upload recipe image")
     public ResponseEntity<String> uploadImage(
             @PathVariable Long id,
             @RequestParam("file") MultipartFile file) {
@@ -61,6 +68,7 @@ public class RecipeController {
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
+    @Operation(summary = "Delete a recipe")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         recipeService.delete(id);
         return ResponseEntity.noContent().build();
@@ -68,6 +76,7 @@ public class RecipeController {
 
     @PutMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
+    @Operation(summary = "Update a recipe")
     public ResponseEntity<RecipeDto> update(
             @PathVariable Long id,
             @RequestBody @Valid UpdateRecipeRequest request) {

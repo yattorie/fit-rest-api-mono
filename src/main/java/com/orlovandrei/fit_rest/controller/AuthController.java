@@ -6,6 +6,8 @@ import com.orlovandrei.fit_rest.dto.auth.RegisterRequest;
 import com.orlovandrei.fit_rest.dto.auth.TokenPair;
 import com.orlovandrei.fit_rest.dto.success.SuccessResponse;
 import com.orlovandrei.fit_rest.service.AuthService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -18,11 +20,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/auth")
+@Tag(name = "Authentication Controller", description = "Endpoints for user authentication and registration")
 public class AuthController{
 
     private final AuthService authService;
 
     @PostMapping("/register")
+    @Operation(summary = "Register a new user")
     public ResponseEntity<SuccessResponse> register(
             @Valid
             @RequestBody RegisterRequest request) {
@@ -32,6 +36,7 @@ public class AuthController{
     }
 
     @PostMapping("/login")
+    @Operation(summary = "User login")
     public ResponseEntity<?> login(
             @Valid
             @RequestBody LoginRequest loginRequest) {
@@ -40,6 +45,7 @@ public class AuthController{
     }
 
     @PostMapping("/refresh-token")
+    @Operation(summary = "Refresh access token")
     public ResponseEntity<?> refreshToken(
             @Valid
             @RequestBody RefreshTokenRequest request) {

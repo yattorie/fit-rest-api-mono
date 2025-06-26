@@ -5,6 +5,8 @@ import com.orlovandrei.fit_rest.dto.article.CreateArticleRequest;
 import com.orlovandrei.fit_rest.dto.article.UpdateArticleRequest;
 import com.orlovandrei.fit_rest.service.ArticleService;
 import com.orlovandrei.fit_rest.service.MinioService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -27,6 +29,7 @@ import org.springframework.web.multipart.MultipartFile;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/articles")
+@Tag(name = "Article Controller", description = "Operations related to articles")
 public class ArticleController {
     
     private final ArticleService articleService;
@@ -34,6 +37,7 @@ public class ArticleController {
 
     @PostMapping
     @PreAuthorize("hasRole('ADMIN')")
+    @Operation(summary = "Create a new article")
     public ResponseEntity<ArticleDto> create(
             @RequestBody @Valid CreateArticleRequest request,
             @AuthenticationPrincipal UserDetails userDetails) {
@@ -42,6 +46,7 @@ public class ArticleController {
     }
 
     @GetMapping
+    @Operation(summary = "Get all articles")
     public ResponseEntity<Page<ArticleDto>> getAll(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size) {
@@ -49,12 +54,14 @@ public class ArticleController {
     }
 
     @GetMapping("/{id}")
+    @Operation(summary = "Get article by id")
     public ResponseEntity<ArticleDto> getById(@PathVariable Long id) {
         return ResponseEntity.ok(articleService.getById(id));
     }
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
+    @Operation(summary = "Delete an article")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         articleService.delete(id);
         return ResponseEntity.noContent().build();
@@ -62,6 +69,7 @@ public class ArticleController {
 
     @PostMapping("/{id}/image")
     @PreAuthorize("hasRole('ADMIN')")
+    @Operation(summary = "Upload article image")
     public ResponseEntity<String> uploadImage(
             @PathVariable Long id,
             @RequestParam("file") MultipartFile file) {
@@ -71,6 +79,7 @@ public class ArticleController {
 
     @PutMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
+    @Operation(summary = "Update an article")
     public ResponseEntity<ArticleDto> update(
             @PathVariable Long id,
             @RequestBody @Valid UpdateArticleRequest request) {

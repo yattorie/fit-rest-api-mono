@@ -4,6 +4,8 @@ import com.orlovandrei.fit_rest.dto.goal.CreateGoalRequest;
 import com.orlovandrei.fit_rest.dto.goal.GoalDto;
 import com.orlovandrei.fit_rest.dto.goal.UpdateGoalRequest;
 import com.orlovandrei.fit_rest.service.GoalService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -25,12 +27,14 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/goals")
+@Tag(name = "Goal Controller", description = "Operations for managing fitness goals")
 public class GoalController {
 
     private final GoalService goalService;
 
     @PostMapping
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    @Operation(summary = "Create a new goal")
     public ResponseEntity<GoalDto> create(
             @RequestBody @Valid CreateGoalRequest request,
             @AuthenticationPrincipal UserDetails userDetails) {
@@ -40,6 +44,7 @@ public class GoalController {
 
     @GetMapping
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    @Operation(summary = "Get all user goals")
     public ResponseEntity<List<GoalDto>> getAll(
             @AuthenticationPrincipal UserDetails userDetails) {
         return ResponseEntity.ok(goalService.getAllByUser(userDetails.getUsername()));
@@ -47,6 +52,7 @@ public class GoalController {
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    @Operation(summary = "Delete a goal")
     public ResponseEntity<?> delete(
             @PathVariable Long id,
             @AuthenticationPrincipal UserDetails userDetails) {
@@ -56,6 +62,7 @@ public class GoalController {
 
     @GetMapping("/{id}")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    @Operation(summary = "Get goal by id")
     public ResponseEntity<GoalDto> getById(
             @PathVariable Long id,
             @AuthenticationPrincipal UserDetails userDetails) {
@@ -64,6 +71,7 @@ public class GoalController {
 
     @PutMapping("/{id}")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    @Operation(summary = "Update a goal")
     public ResponseEntity<GoalDto> update(
             @PathVariable Long id,
             @RequestBody @Valid UpdateGoalRequest request,

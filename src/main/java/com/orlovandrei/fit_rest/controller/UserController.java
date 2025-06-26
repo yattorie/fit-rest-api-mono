@@ -6,6 +6,8 @@ import com.orlovandrei.fit_rest.dto.user.UserResponse;
 import com.orlovandrei.fit_rest.dto.user.UserUpdate;
 import com.orlovandrei.fit_rest.entity.user.User;
 import com.orlovandrei.fit_rest.service.UserService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -26,6 +28,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/users")
+@Tag(name = "User Controller", description = "Operations for managing users (Admin only)")
 public class UserController {
 
     private final UserService userService;
@@ -33,6 +36,7 @@ public class UserController {
 
     @GetMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
+    @Operation(summary = "Get user by id")
     public ResponseEntity<UserResponse> getById(
             @PathVariable Long id) {
         User user = userService.getById(id);
@@ -41,6 +45,7 @@ public class UserController {
 
     @GetMapping("/username/{username}")
     @PreAuthorize("hasRole('ADMIN')")
+    @Operation(summary = "Get user by username")
     public ResponseEntity<UserResponse> getByUsername(
             @PathVariable String username) {
         User user = userService.getByUsername(username);
@@ -49,6 +54,7 @@ public class UserController {
 
     @GetMapping("email/{email}")
     @PreAuthorize("hasRole('ADMIN')")
+    @Operation(summary = "Get user by email")
     public ResponseEntity<UserResponse> getByEmail(
             @PathVariable String email) {
         User user = userService.getByEmail(email);
@@ -57,6 +63,7 @@ public class UserController {
 
     @GetMapping()
     @PreAuthorize("hasRole('ADMIN')")
+    @Operation(summary = "Get all users")
     public ResponseEntity<Page<UserResponse>> getAll(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size) {
@@ -68,6 +75,7 @@ public class UserController {
 
     @PostMapping()
     @PreAuthorize("hasRole('ADMIN')")
+    @Operation(summary = "Create a new user")
     public ResponseEntity<UserCreate> create(
             @RequestBody
             @Valid UserCreate userCreate) {
@@ -78,6 +86,7 @@ public class UserController {
 
     @PutMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
+    @Operation(summary = "Update a user")
     public ResponseEntity<UserUpdate> update(
             @PathVariable Long id,
             @Valid
@@ -89,6 +98,7 @@ public class UserController {
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
+    @Operation(summary = "Delete a user")
     public ResponseEntity<?> delete(
             @PathVariable Long id) {
         userService.delete(id);
