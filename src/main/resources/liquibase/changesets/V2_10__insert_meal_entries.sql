@@ -1,0 +1,16 @@
+insert into meal_entries (type, recipe_id, meal_plan_id)
+values ('breakfast', 1, 1),
+       ('lunch', 2, 1),
+       ('dinner', 3, 1),
+       ('breakfast', 4, 2),
+       ('lunch', 5, 2),
+       ('dinner', 6, 2),
+       ('breakfast', 7, 3),
+       ('lunch', 8, 3),
+       ('dinner', 9, 3),
+       ('breakfast', 10, 4),
+       ('lunch', 1, 4),
+       ('dinner', 2, 4),
+       ('breakfast', 3, 5),
+       ('lunch', 4, 5),
+       ('dinner', 5, 5);

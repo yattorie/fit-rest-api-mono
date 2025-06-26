@@ -1,0 +1,16 @@
+insert into comments (content, created_at, author_id, article_id)
+values ('Great article! Very informative and helpful.', '2025-06-26 09:10:00', 2, 1),
+       ('I love these fitness tips, thank you!', '2025-06-26 09:20:00', 3, 1),
+       ('This is exactly what I needed to start yoga.', '2025-06-26 10:00:00', 1, 2),
+       ('Cardio has always been tough for me. Thanks for the motivation!', '2025-06-26 10:30:00', 2, 3),
+       ('Very clear explanation on strength training basics.', '2025-06-26 11:00:00', 3, 4),
+       ('Nutrition advice was spot on.', '2025-06-26 11:30:00', 1, 5),
+       ('Stretching really made a difference in my recovery.', '2025-06-26 12:00:00', 2, 6),
+       ('Staying motivated is my biggest challenge. This helped a lot.', '2025-06-26 12:30:00', 3, 7),
+       ('Great introduction to CrossFit!', '2025-06-26 13:00:00', 1, 8),
+       ('Swimming tips are very useful for beginners.', '2025-06-26 13:30:00', 2, 9),
+       ('Dancing is definitely good for happiness!', '2025-06-26 14:00:00', 3, 10),
+       ('How often should I stretch each week?', '2025-06-26 14:30:00', 1, 6),
+       ('Can you recommend more healthy recipes?', '2025-06-26 15:00:00', 2, 5),
+       ('What is the best way to start strength training at home?', '2025-06-26 15:30:00', 3, 4),
+       ('Thanks for the motivation boost!', '2025-06-26 16:00:00', 1, 7);
