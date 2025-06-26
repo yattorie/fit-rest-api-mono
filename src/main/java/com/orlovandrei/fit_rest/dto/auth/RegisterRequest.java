@@ -1,5 +1,6 @@
 package com.orlovandrei.fit_rest.dto.auth;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -15,16 +16,29 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@Schema(description = "Request for registering a new user account")
 public class RegisterRequest {
+    @Schema(
+            description = "Unique username for the new user",
+            example = "test_user"
+    )
     @Size(min = 3, max = 50, message = "Username must be between 3 and 50 characters")
     @NotBlank(message = "Username must be not null.")
     String username;
 
+    @Schema(
+            description = "Email address for the new user",
+            example = "test_user@example.com"
+    )
     @Email(message = "Email must be valid")
     @Size(max = 100, message = "Email must be less than 100 characters")
     @NotBlank(message = "Email must be not null.")
     String email;
 
+    @Schema(
+            description = "Password for the new user account",
+            example = "password123"
+    )
     @NotBlank(message = "Password must be not null.")
     @Size(min = 8, max = 100, message = "Password must be between 8 and 100 characters")
     String password;
