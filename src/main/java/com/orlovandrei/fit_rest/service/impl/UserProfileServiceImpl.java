@@ -50,13 +50,13 @@ public class UserProfileServiceImpl implements UserProfileService {
 
     private User getUser(String username) {
         return userRepository.findByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException(Messages.USER_NOT_FOUND.getMessage()+username));
+                .orElseThrow(() -> new UsernameNotFoundException(Messages.USER_NOT_FOUND.getMessage() + username));
     }
 
     @Override
     public int calculateCalorieNorm(String username) {
         User user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException(Messages.USER_NOT_FOUND.getMessage()+username));
+                .orElseThrow(() -> new UsernameNotFoundException(Messages.USER_NOT_FOUND.getMessage() + username));
 
         if (user.getWeight() == null || user.getHeight() == null || user.getBirthDate() == null || user.getGender() == null) {
             throw new IncompleteProfileException(Messages.PROFILE_INCOMPLETE.getMessage());

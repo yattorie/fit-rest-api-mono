@@ -60,7 +60,7 @@ public class WorkoutServiceImpl implements WorkoutService {
     @Transactional(readOnly = true)
     public WorkoutDto getById(Long id) {
         Workout workout = workoutRepository.findById(id)
-                .orElseThrow(() -> new WorkoutNotFoundException(Messages.WORKOUT_NOT_FOUND_BY_ID.getMessage()+id));
+                .orElseThrow(() -> new WorkoutNotFoundException(Messages.WORKOUT_NOT_FOUND_BY_ID.getMessage() + id));
         return workoutMapper.toDto(workout);
     }
 
@@ -68,7 +68,7 @@ public class WorkoutServiceImpl implements WorkoutService {
     @Transactional
     public WorkoutDto update(Long id, UpdateWorkoutRequest request) {
         Workout workout = workoutRepository.findById(id)
-                .orElseThrow(() -> new WorkoutNotFoundException(Messages.WORKOUT_NOT_FOUND_BY_ID.getMessage()+id));
+                .orElseThrow(() -> new WorkoutNotFoundException(Messages.WORKOUT_NOT_FOUND_BY_ID.getMessage() + id));
 
         workout.setName(request.getName());
         workout.setDuration(request.getDuration());
@@ -93,7 +93,7 @@ public class WorkoutServiceImpl implements WorkoutService {
     @Transactional
     public void delete(Long id) {
         if (!workoutRepository.existsById(id)) {
-            throw new WorkoutNotFoundException(Messages.WORKOUT_NOT_FOUND_BY_ID.getMessage()+id);
+            throw new WorkoutNotFoundException(Messages.WORKOUT_NOT_FOUND_BY_ID.getMessage() + id);
         }
         workoutRepository.deleteById(id);
     }

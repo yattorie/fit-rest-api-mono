@@ -75,7 +75,7 @@ public class ArticleServiceImpl implements ArticleService {
     @Transactional
     public ArticleDto update(Long id, UpdateArticleRequest request) {
         Article article = articleRepository.findById(id)
-                .orElseThrow(() -> new ArticleNotFoundException(Messages.ARTICLE_NOT_FOUND_BY_ID.getMessage()+ id));
+                .orElseThrow(() -> new ArticleNotFoundException(Messages.ARTICLE_NOT_FOUND_BY_ID.getMessage() + id));
 
         Category category = categoryRepository.findById(request.getCategoryId())
                 .orElseThrow(() -> new CategoryNotFoundException(Messages.CATEGORY_NOT_FOUND_BY_ID.getMessage() + request.getCategoryId()));

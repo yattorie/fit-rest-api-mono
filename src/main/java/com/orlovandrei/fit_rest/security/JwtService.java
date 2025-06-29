@@ -52,7 +52,7 @@ public class JwtService {
                 .orElseThrow(() -> new UsernameNotFoundException("User not found: " + username));
         Map<String, Object> claims = new HashMap<>();
         claims.put("email", user.getEmail());
-        claims.put("role",  user.getRole().name());
+        claims.put("role", user.getRole().name());
         return generateToken(authentication, jwtExpirationMs, claims);
     }
 
@@ -92,8 +92,7 @@ public class JwtService {
 
     public String extractUsernameFromToken(String token) {
         Claims claims = extractAllClaims(token);
-
-        if(claims != null) {
+        if (claims != null) {
             return claims.getSubject();
         }
         return null;
@@ -101,7 +100,7 @@ public class JwtService {
 
     public boolean isRefreshToken(String token) {
         Claims claims = extractAllClaims(token);
-        if(claims == null) {
+        if (claims == null) {
             return false;
         }
         return "refresh".equals(claims.get("tokenType"));

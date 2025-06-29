@@ -54,10 +54,10 @@ public class GoalServiceImpl implements GoalService {
     }
 
     @Override
-    @Transactional(readOnly = true)
+    @Transactional
     public void delete(Long id, String username) {
         Goal goal = goalRepository.findById(id)
-                .orElseThrow(() -> new GoalNotFoundException(Messages.GOAL_NOT_FOUND_BY_ID.getMessage() +id));
+                .orElseThrow(() -> new GoalNotFoundException(Messages.GOAL_NOT_FOUND_BY_ID.getMessage() + id));
         if (!goal.getUser().getUsername().equals(username)) {
             throw new AccessDeniedException(Messages.DELETE_ONLY_YOUR_GOALS.getMessage());
         }
@@ -68,7 +68,7 @@ public class GoalServiceImpl implements GoalService {
     @Transactional(readOnly = true)
     public GoalDto getById(Long id, String username) {
         Goal goal = goalRepository.findById(id)
-                .orElseThrow(() -> new GoalNotFoundException(Messages.GOAL_NOT_FOUND_BY_ID.getMessage() +id));
+                .orElseThrow(() -> new GoalNotFoundException(Messages.GOAL_NOT_FOUND_BY_ID.getMessage() + id));
 
         if (!goal.getUser().getUsername().equals(username)) {
             throw new AccessDeniedException(Messages.GET_ONLY_YOUR_GOALS.getMessage());
@@ -81,7 +81,7 @@ public class GoalServiceImpl implements GoalService {
     @Transactional
     public GoalDto update(Long id, UpdateGoalRequest request, String username) {
         Goal goal = goalRepository.findById(id)
-                .orElseThrow(() -> new GoalNotFoundException(Messages.GOAL_NOT_FOUND_BY_ID.getMessage() +id));
+                .orElseThrow(() -> new GoalNotFoundException(Messages.GOAL_NOT_FOUND_BY_ID.getMessage() + id));
 
         if (!goal.getUser().getUsername().equals(username)) {
             throw new AccessDeniedException(Messages.CHANGE_ONLY_YOUR_GOALS.getMessage());

@@ -120,7 +120,7 @@ public class ControllerAdvice {
 
     @ExceptionHandler(ConstraintViolationException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ExceptionBody handleConstraintViolation(ConstraintViolationException e){
+    public ExceptionBody handleConstraintViolation(ConstraintViolationException e) {
         LoggerUtil.logError("Constraint violation: " + e.getMessage(), e);
         ExceptionBody exceptionBody = new ExceptionBody("Validation failed");
         exceptionBody.setErrors(e.getConstraintViolations().stream().collect(Collectors.toMap(
@@ -145,7 +145,7 @@ public class ControllerAdvice {
 
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public ExceptionBody handleException(Exception e){
+    public ExceptionBody handleException(Exception e) {
         LoggerUtil.logError("Internal server error", e);
         return new ExceptionBody("Internal error");
     }

@@ -64,7 +64,7 @@ public class CommentServiceImpl implements CommentService {
     @Transactional(readOnly = true)
     public CommentDto getById(Long id) {
         Comment comment = commentRepository.findById(id)
-                .orElseThrow(() -> new CommentNotFoundException(Messages.COMMENT_NOT_FOUND_BY_ID.getMessage()+ id));
+                .orElseThrow(() -> new CommentNotFoundException(Messages.COMMENT_NOT_FOUND_BY_ID.getMessage() + id));
         return commentMapper.toDto(comment);
     }
 
@@ -72,7 +72,7 @@ public class CommentServiceImpl implements CommentService {
     @Transactional
     public CommentDto update(Long id, UpdateCommentRequest request, String username) {
         Comment comment = commentRepository.findById(id)
-                .orElseThrow(() -> new CommentNotFoundException(Messages.COMMENT_NOT_FOUND_BY_ID.getMessage()+ id));
+                .orElseThrow(() -> new CommentNotFoundException(Messages.COMMENT_NOT_FOUND_BY_ID.getMessage() + id));
 
         if (!comment.getAuthor().getUsername().equals(username)) {
             throw new AccessDeniedException(Messages.EDIT_ONLY_YOUR_COMMENT.getMessage());
@@ -86,7 +86,7 @@ public class CommentServiceImpl implements CommentService {
     @Transactional
     public void delete(Long id, String username) {
         Comment comment = commentRepository.findById(id)
-                .orElseThrow(() -> new CommentNotFoundException(Messages.COMMENT_NOT_FOUND_BY_ID.getMessage()+ id));
+                .orElseThrow(() -> new CommentNotFoundException(Messages.COMMENT_NOT_FOUND_BY_ID.getMessage() + id));
 
         if (!comment.getAuthor().getUsername().equals(username)) {
             throw new AccessDeniedException(Messages.DELETE_ONLY_YOUR_COMMENT.getMessage());

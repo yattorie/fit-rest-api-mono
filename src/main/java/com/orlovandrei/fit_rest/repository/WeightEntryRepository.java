@@ -9,5 +9,6 @@ import java.util.List;
 public interface WeightEntryRepository extends JpaRepository<WeightEntry, Long> {
     List<WeightEntry> findByUserUsernameOrderByDateAsc(String username);
 
-    boolean existsByUserUsernameAndDate(String username, LocalDate date);}
+    boolean existsByUserUsernameAndDate(String username, LocalDate date);
+}
 

@@ -47,7 +47,7 @@ public class RecipeServiceImpl implements RecipeService {
     @Transactional
     public RecipeDto update(Long id, UpdateRecipeRequest request) {
         Recipe recipe = recipeRepository.findById(id)
-                .orElseThrow(() -> new RecipeNotFoundException(Messages.RECIPE_NOT_FOUND_BY_ID.getMessage()+id));
+                .orElseThrow(() -> new RecipeNotFoundException(Messages.RECIPE_NOT_FOUND_BY_ID.getMessage() + id));
 
         recipe.setTitle(request.getTitle());
         recipe.setDescription(request.getDescription());
@@ -72,7 +72,7 @@ public class RecipeServiceImpl implements RecipeService {
     @Transactional(readOnly = true)
     public RecipeDto getById(Long id) {
         Recipe recipe = recipeRepository.findById(id)
-                .orElseThrow(() -> new RecipeNotFoundException(Messages.RECIPE_NOT_FOUND_BY_ID.getMessage()+id));
+                .orElseThrow(() -> new RecipeNotFoundException(Messages.RECIPE_NOT_FOUND_BY_ID.getMessage() + id));
         return recipeMapper.toDto(recipe);
     }
 
