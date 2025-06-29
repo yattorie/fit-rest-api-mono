@@ -1,9 +1,9 @@
 package com.orlovandrei.fit_rest.dto.mapper;
 
 
-import com.orlovandrei.fit_rest.dto.user.UserCreate;
+import com.orlovandrei.fit_rest.dto.user.CreateUserRequest;
 import com.orlovandrei.fit_rest.dto.user.UserResponse;
-import com.orlovandrei.fit_rest.dto.user.UserUpdate;
+import com.orlovandrei.fit_rest.dto.user.UpdateUserRequest;
 import com.orlovandrei.fit_rest.entity.user.Role;
 import com.orlovandrei.fit_rest.entity.user.User;
 import org.mapstruct.Mapper;
@@ -18,15 +18,15 @@ public interface UserMapper {
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "role", ignore = true)
-    User toEntity(UserCreate dto);
+    User toEntity(CreateUserRequest dto);
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "role", source = "role", qualifiedByName = "stringToRole")
-    User toEntity(UserUpdate dto);
+    User toEntity(UpdateUserRequest dto);
 
-    UserUpdate toUpdateDto(User entity);
+    UpdateUserRequest toUpdateDto(User entity);
 
-    UserCreate toCreateDto(User entity);
+    CreateUserRequest toCreateDto(User entity);
 
     @Named("roleToString")
     default String roleToString(Role role) {

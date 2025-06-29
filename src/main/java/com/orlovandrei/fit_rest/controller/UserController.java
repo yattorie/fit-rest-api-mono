@@ -1,9 +1,9 @@
 package com.orlovandrei.fit_rest.controller;
 
 import com.orlovandrei.fit_rest.dto.mapper.UserMapper;
-import com.orlovandrei.fit_rest.dto.user.UserCreate;
+import com.orlovandrei.fit_rest.dto.user.CreateUserRequest;
 import com.orlovandrei.fit_rest.dto.user.UserResponse;
-import com.orlovandrei.fit_rest.dto.user.UserUpdate;
+import com.orlovandrei.fit_rest.dto.user.UpdateUserRequest;
 import com.orlovandrei.fit_rest.entity.user.User;
 import com.orlovandrei.fit_rest.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -76,10 +76,10 @@ public class UserController {
     @PostMapping()
     @PreAuthorize("hasRole('ADMIN')")
     @Operation(summary = "Create a new user")
-    public ResponseEntity<UserCreate> create(
+    public ResponseEntity<CreateUserRequest> create(
             @RequestBody
-            @Valid UserCreate userCreate) {
-        User user = userMapper.toEntity(userCreate);
+            @Valid CreateUserRequest createUserRequest) {
+        User user = userMapper.toEntity(createUserRequest);
         User createdUser = userService.create(user);
         return ResponseEntity.status(201).body(userMapper.toCreateDto(createdUser));
     }
@@ -87,11 +87,11 @@ public class UserController {
     @PutMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     @Operation(summary = "Update a user")
-    public ResponseEntity<UserUpdate> update(
+    public ResponseEntity<UpdateUserRequest> update(
             @PathVariable Long id,
             @Valid
-            @RequestBody UserUpdate userUpdate) {
-        User user = userMapper.toEntity(userUpdate);
+            @RequestBody UpdateUserRequest updateUserRequest) {
+        User user = userMapper.toEntity(updateUserRequest);
         User updatedUser = userService.update(id, user);
         return ResponseEntity.ok(userMapper.toUpdateDto(updatedUser));
     }
