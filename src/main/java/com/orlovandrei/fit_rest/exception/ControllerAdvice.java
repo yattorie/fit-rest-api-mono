@@ -17,6 +17,13 @@ import java.util.stream.Collectors;
 @RestControllerAdvice
 public class ControllerAdvice {
 
+    @ExceptionHandler(WeightEntryAlreadyExistsException.class)
+    @ResponseStatus(HttpStatus.CONFLICT)
+    public ExceptionBody handleWeightEntryAlreadyExists(WeightEntryAlreadyExistsException e) {
+        LoggerUtil.logError("Weight entry already exists: " + e.getMessage(), e);
+        return new ExceptionBody(e.getMessage());
+    }
+
     @ExceptionHandler(MealPlanNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ExceptionBody handleMealPlanNotFoundException(MealPlanNotFoundException e) {

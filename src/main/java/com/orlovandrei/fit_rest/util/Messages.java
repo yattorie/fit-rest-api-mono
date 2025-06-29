@@ -33,6 +33,7 @@ public enum Messages {
     USER_NOT_FOUND("User not found"),
     PROFILE_INCOMPLETE("Profile data is incomplete. Please ensure weight, height, birthdate, and gender are provided."),
     MEAL_PLAN_ACCESS_DENIED("You can only manage your own meal plans"),
+    WEIGHT_ALREADY_MEASURED("You've already measured your weight today."),
     MEAL_PLAN_OPERATION_DENIED("You can only manage your own meal plans");
 
     private final String message;

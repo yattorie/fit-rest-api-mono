@@ -5,6 +5,7 @@ import com.orlovandrei.fit_rest.dto.weight.AddWeightEntryRequest;
 import com.orlovandrei.fit_rest.dto.weight.WeightEntryDto;
 import com.orlovandrei.fit_rest.entity.user.User;
 import com.orlovandrei.fit_rest.entity.weight.WeightEntry;
+import com.orlovandrei.fit_rest.exception.WeightEntryAlreadyExistsException;
 import com.orlovandrei.fit_rest.repository.UserRepository;
 import com.orlovandrei.fit_rest.repository.WeightEntryRepository;
 import com.orlovandrei.fit_rest.service.WeightService;
@@ -27,6 +28,10 @@ public class WeightServiceImpl implements WeightService {
     public void addEntry(String username, AddWeightEntryRequest request) {
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException(Messages.USER_NOT_FOUND.getMessage() + username));
+
+        if (weightEntryRepository.existsByUserUsernameAndDate(username, request.getDate())) {
+            throw new WeightEntryAlreadyExistsException(Messages.WEIGHT_ALREADY_MEASURED.getMessage());
+        }
 
         WeightEntry entry = WeightEntry.builder()
                 .date(request.getDate())
