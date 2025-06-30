@@ -30,14 +30,16 @@ public class UserProfileServiceImpl implements UserProfileService {
     @Override
     @Transactional(readOnly = true)
     public UserProfileDto getProfile(String username) {
-        User user = getUser(username);
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException(Messages.USER_NOT_FOUND.getMessage() + username));
         return profileMapper.toProfileDto(user);
     }
 
     @Override
     @Transactional
     public UserProfileDto updateProfile(UpdateUserProfileRequest request, String username) {
-        User user = getUser(username);
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException(Messages.USER_NOT_FOUND.getMessage() + username));
 
         user.setWeight(request.getWeight());
         user.setHeight(request.getHeight());
@@ -46,11 +48,6 @@ public class UserProfileServiceImpl implements UserProfileService {
 
         userRepository.save(user);
         return profileMapper.toProfileDto(user);
-    }
-
-    private User getUser(String username) {
-        return userRepository.findByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException(Messages.USER_NOT_FOUND.getMessage() + username));
     }
 
     @Override
@@ -87,6 +84,4 @@ public class UserProfileServiceImpl implements UserProfileService {
 
         return (int) Math.round(bmr * multiplier);
     }
-
 }
-
