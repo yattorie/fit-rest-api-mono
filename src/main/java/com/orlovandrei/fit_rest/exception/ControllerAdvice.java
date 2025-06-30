@@ -24,6 +24,13 @@ public class ControllerAdvice {
         return new ExceptionBody(e.getMessage());
     }
 
+    @ExceptionHandler(RecipeAlreadyExistsException.class)
+    @ResponseStatus(HttpStatus.CONFLICT)
+    public ExceptionBody handleRecipeAlreadyExistsException(RecipeAlreadyExistsException e) {
+        LoggerUtil.logError("Recipe already exists: " + e.getMessage(), e);
+        return new ExceptionBody(e.getMessage());
+    }
+
     @ExceptionHandler(WeightEntryAlreadyExistsException.class)
     @ResponseStatus(HttpStatus.CONFLICT)
     public ExceptionBody handleWeightEntryAlreadyExists(WeightEntryAlreadyExistsException e) {
