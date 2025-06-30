@@ -24,6 +24,13 @@ public class ControllerAdvice {
         return new ExceptionBody(e.getMessage());
     }
 
+    @ExceptionHandler(ArticleAlreadyExistsException.class)
+    @ResponseStatus(HttpStatus.CONFLICT)
+    public ExceptionBody handleArticleAlreadyExistsException(ArticleAlreadyExistsException e) {
+        LoggerUtil.logError("Article already exists: " + e.getMessage(), e);
+        return new ExceptionBody(e.getMessage());
+    }
+
     @ExceptionHandler(RecipeAlreadyExistsException.class)
     @ResponseStatus(HttpStatus.CONFLICT)
     public ExceptionBody handleRecipeAlreadyExistsException(RecipeAlreadyExistsException e) {

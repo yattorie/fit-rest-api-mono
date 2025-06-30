@@ -33,6 +33,7 @@ public enum Messages {
     USER_NOT_FOUND("User not found"),
     CATEGORY_ALREADY_EXISTS("Category already exists with name: "),
     RECIPE_ALREADY_EXISTS("Recipe with this title already exists: "),
+    ARTICLE_ALREADY_EXISTS("Article with this title already exists: "),
     PROFILE_INCOMPLETE("Profile data is incomplete. Please ensure weight, height, birthdate, and gender are provided."),
     MEAL_PLAN_ACCESS_DENIED("You can only manage your own meal plans"),
     WEIGHT_ALREADY_MEASURED("You've already measured your weight today."),

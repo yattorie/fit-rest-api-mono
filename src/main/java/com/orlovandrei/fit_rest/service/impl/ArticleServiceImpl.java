@@ -7,6 +7,7 @@ import com.orlovandrei.fit_rest.dto.mapper.ArticleMapper;
 import com.orlovandrei.fit_rest.entity.article.Article;
 import com.orlovandrei.fit_rest.entity.category.Category;
 import com.orlovandrei.fit_rest.entity.user.User;
+import com.orlovandrei.fit_rest.exception.ArticleAlreadyExistsException;
 import com.orlovandrei.fit_rest.exception.ArticleNotFoundException;
 import com.orlovandrei.fit_rest.exception.CategoryNotFoundException;
 import com.orlovandrei.fit_rest.repository.ArticleRepository;
@@ -42,6 +43,10 @@ public class ArticleServiceImpl implements ArticleService {
 
         Category category = categoryRepository.findById(request.getCategoryId())
                 .orElseThrow(() -> new CategoryNotFoundException(Messages.CATEGORY_NOT_FOUND_BY_ID.getMessage() + request.getCategoryId()));
+
+        if (articleRepository.existsByTitle(request.getTitle())) {
+            throw new ArticleAlreadyExistsException(Messages.ARTICLE_ALREADY_EXISTS.getMessage() + request.getTitle());
+        }
 
         Article article = Article.builder()
                 .title(request.getTitle())
@@ -79,6 +84,10 @@ public class ArticleServiceImpl implements ArticleService {
 
         Category category = categoryRepository.findById(request.getCategoryId())
                 .orElseThrow(() -> new CategoryNotFoundException(Messages.CATEGORY_NOT_FOUND_BY_ID.getMessage() + request.getCategoryId()));
+
+        if (!article.getTitle().equals(request.getTitle()) && articleRepository.existsByTitleAndIdNot(request.getTitle(), id)) {
+            throw new ArticleAlreadyExistsException(Messages.ARTICLE_ALREADY_EXISTS.getMessage() + request.getTitle());
+        }
 
         article.setTitle(request.getTitle());
         article.setContent(request.getContent());
