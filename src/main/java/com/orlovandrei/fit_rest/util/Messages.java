@@ -31,6 +31,7 @@ public enum Messages {
     GET_ONLY_YOUR_GOALS("You can only get your goals."),
     DELETE_ONLY_YOUR_GOALS("You can only get your goals."),
     USER_NOT_FOUND("User not found"),
+    CATEGORY_ALREADY_EXISTS("Category already exists with name: "),
     PROFILE_INCOMPLETE("Profile data is incomplete. Please ensure weight, height, birthdate, and gender are provided."),
     MEAL_PLAN_ACCESS_DENIED("You can only manage your own meal plans"),
     WEIGHT_ALREADY_MEASURED("You've already measured your weight today."),

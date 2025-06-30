@@ -17,6 +17,13 @@ import java.util.stream.Collectors;
 @RestControllerAdvice
 public class ControllerAdvice {
 
+    @ExceptionHandler(CategoryAlreadyExistsException.class)
+    @ResponseStatus(HttpStatus.CONFLICT)
+    public ExceptionBody handleCategoryAlreadyExistsException(CategoryAlreadyExistsException e) {
+        LoggerUtil.logError("Category already exists: " + e.getMessage(), e);
+        return new ExceptionBody(e.getMessage());
+    }
+
     @ExceptionHandler(WeightEntryAlreadyExistsException.class)
     @ResponseStatus(HttpStatus.CONFLICT)
     public ExceptionBody handleWeightEntryAlreadyExists(WeightEntryAlreadyExistsException e) {

@@ -5,6 +5,7 @@ import com.orlovandrei.fit_rest.dto.category.CreateCategoryRequest;
 import com.orlovandrei.fit_rest.dto.category.UpdateCategoryRequest;
 import com.orlovandrei.fit_rest.dto.mapper.CategoryMapper;
 import com.orlovandrei.fit_rest.entity.category.Category;
+import com.orlovandrei.fit_rest.exception.CategoryAlreadyExistsException;
 import com.orlovandrei.fit_rest.exception.CategoryNotFoundException;
 import com.orlovandrei.fit_rest.repository.CategoryRepository;
 import com.orlovandrei.fit_rest.service.CategoryService;
@@ -40,6 +41,9 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     @Transactional
     public CategoryDto create(CreateCategoryRequest request) {
+        if (categoryRepository.existsByName(request.getName())) {
+            throw new CategoryAlreadyExistsException(Messages.CATEGORY_ALREADY_EXISTS.getMessage() + request.getName());
+        }
         Category category = Category.builder()
                 .name(request.getName())
                 .build();
