@@ -6,5 +6,8 @@ public interface MinioService {
     String uploadRecipeImage(MultipartFile file, Long recipeId);
     String uploadArticleImage(MultipartFile file, Long articleId);
 
+    void deleteArticleImage(Long articleId);
+
+    void deleteRecipeImage(Long recipeId);
 }
 

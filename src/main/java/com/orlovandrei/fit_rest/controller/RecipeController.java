@@ -66,6 +66,14 @@ public class RecipeController {
         return ResponseEntity.ok(url);
     }
 
+    @DeleteMapping("/{id}/image")
+    @PreAuthorize("hasRole('ADMIN')")
+    @Operation(summary = "Delete recipe image")
+    public ResponseEntity<Void> deleteImage(@PathVariable Long id) {
+        minioService.deleteRecipeImage(id);
+        return ResponseEntity.noContent().build();
+    }
+
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     @Operation(summary = "Delete a recipe")

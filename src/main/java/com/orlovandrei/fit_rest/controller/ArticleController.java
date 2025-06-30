@@ -67,6 +67,14 @@ public class ArticleController {
         return ResponseEntity.noContent().build();
     }
 
+    @DeleteMapping("/{id}/image")
+    @PreAuthorize("hasRole('ADMIN')")
+    @Operation(summary = "Delete article image")
+    public ResponseEntity<Void> deleteImage(@PathVariable Long id) {
+        minioService.deleteArticleImage(id);
+        return ResponseEntity.noContent().build();
+    }
+
     @PostMapping("/{id}/image")
     @PreAuthorize("hasRole('ADMIN')")
     @Operation(summary = "Upload article image")
