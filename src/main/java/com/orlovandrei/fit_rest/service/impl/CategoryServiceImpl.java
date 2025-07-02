@@ -11,6 +11,8 @@ import com.orlovandrei.fit_rest.repository.CategoryRepository;
 import com.orlovandrei.fit_rest.service.CategoryService;
 import com.orlovandrei.fit_rest.util.Messages;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -32,6 +34,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     @Transactional(readOnly = true)
+    @Cacheable(value = "CategoryService::getById", key = "#id")
     public CategoryDto getById(Long id) {
         Category category = categoryRepository.findById(id)
                 .orElseThrow(() -> new CategoryNotFoundException(Messages.CATEGORY_NOT_FOUND_BY_ID.getMessage() + id));
@@ -61,6 +64,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     @Transactional
+    @CacheEvict(value = "CategoryService::getById", key = "#id")
     public void delete(Long id) {
         if (!categoryRepository.existsById(id)) {
             throw new CategoryNotFoundException(Messages.CATEGORY_NOT_FOUND_BY_ID.getMessage() + id);

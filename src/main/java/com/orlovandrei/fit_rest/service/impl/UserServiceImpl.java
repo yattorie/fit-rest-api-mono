@@ -9,6 +9,10 @@ import com.orlovandrei.fit_rest.repository.UserRepository;
 import com.orlovandrei.fit_rest.service.UserService;
 import com.orlovandrei.fit_rest.util.Messages;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -24,6 +28,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional(readOnly = true)
+    @Cacheable(value = "UserService::getById", key = "#id")
     public User getById(Long id) {
         return userRepository.findById(id)
                 .orElseThrow(() -> new UserNotFoundException(Messages.USER_NOT_FOUND_BY_ID.getMessage() + id));
@@ -31,6 +36,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional(readOnly = true)
+    @Cacheable(value = "UserService::getByUsername", key = "#username")
     public User getByUsername(String username) {
         return userRepository.findByUsername(username)
                 .orElseThrow(() -> new UserNotFoundException(Messages.USER_NOT_FOUND_USERNAME.getMessage() + username));
@@ -38,6 +44,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional(readOnly = true)
+    @Cacheable(value = "UserService::getByEmail", key = "#email")
     public User getByEmail(String email) {
         return userRepository.findByEmail(email)
                 .orElseThrow(() -> new UserNotFoundException(Messages.USER_NOT_FOUND_EMAIL.getMessage() + email));
@@ -51,6 +58,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
+    @Caching(cacheable = {
+            @Cacheable(value = "UserService::getById", key = "#user.id"),
+            @Cacheable(value = "UserService::getByUsername", key = "#user.username"),
+            @Cacheable(value = "UserService::getByEmail", key = "#user.email")
+    })
     public User create(User user) {
         if (userRepository.existsByUsername(user.getUsername())) {
             throw new UserAlreadyExistsException(Messages.USERNAME.getMessage() + user.getUsername() + Messages.IS_ALREADY_TAKEN.getMessage());
@@ -69,6 +81,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
+    @Caching(put = {
+            @CachePut(value = "UserService::getById", key = "#user.id"),
+            @CachePut(value = "UserService::getByUsername", key = "#user.username"),
+            @CachePut(value = "UserService::getByEmail", key = "#user.email")
+    })
     public User update(Long id, User user) {
         User updatingUser = userRepository.findById(id)
                 .orElseThrow(() -> new UserNotFoundException(Messages.USER_NOT_FOUND_BY_ID.getMessage() + id));
@@ -93,6 +110,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
+    @CacheEvict(value = "UserService::getById", key = "#id")
     public void delete(Long id) {
         if (!userRepository.existsById(id)) {
             throw new UserNotFoundException(Messages.USER_NOT_FOUND_BY_ID.getMessage() + id);

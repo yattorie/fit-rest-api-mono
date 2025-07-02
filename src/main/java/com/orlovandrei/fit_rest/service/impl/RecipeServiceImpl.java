@@ -12,6 +12,8 @@ import com.orlovandrei.fit_rest.repository.RecipeRepository;
 import com.orlovandrei.fit_rest.service.RecipeService;
 import com.orlovandrei.fit_rest.util.Messages;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -79,6 +81,7 @@ public class RecipeServiceImpl implements RecipeService {
 
     @Override
     @Transactional(readOnly = true)
+    @Cacheable(value = "RecipeService::getById", key = "#id")
     public RecipeDto getById(Long id) {
         Recipe recipe = recipeRepository.findById(id)
                 .orElseThrow(() -> new RecipeNotFoundException(Messages.RECIPE_NOT_FOUND_BY_ID.getMessage() + id));
@@ -87,6 +90,7 @@ public class RecipeServiceImpl implements RecipeService {
 
     @Override
     @Transactional
+    @CacheEvict(value = "RecipeService::getById", key = "#id")
     public void delete(Long id) {
         if (!recipeRepository.existsById(id)) {
             throw new ArticleNotFoundException(Messages.RECIPE_NOT_FOUND_BY_ID.getMessage() + id);
