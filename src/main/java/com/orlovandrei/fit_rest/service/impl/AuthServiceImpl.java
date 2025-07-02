@@ -11,6 +11,7 @@ import com.orlovandrei.fit_rest.exception.UserAlreadyExistsException;
 import com.orlovandrei.fit_rest.repository.UserRepository;
 import com.orlovandrei.fit_rest.security.JwtService;
 import com.orlovandrei.fit_rest.service.AuthService;
+import com.orlovandrei.fit_rest.service.MailService;
 import com.orlovandrei.fit_rest.util.Messages;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
@@ -33,6 +34,7 @@ public class AuthServiceImpl implements AuthService {
     private final AuthenticationManager authenticationManager;
     private final JwtService jwtService;
     private final UserDetailsService userDetailsService;
+    private final MailService mailService;
 
     @Transactional
     public void register(RegisterRequest registerRequest) {
@@ -52,6 +54,8 @@ public class AuthServiceImpl implements AuthService {
                 .build();
 
         userRepository.save(user);
+
+        mailService.sendRegistrationEmail(registerRequest.getEmail(), registerRequest.getUsername());
     }
 
     public TokenPair login(LoginRequest loginRequest) {

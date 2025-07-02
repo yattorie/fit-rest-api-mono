@@ -38,6 +38,8 @@ public enum Messages {
     MEAL_PLAN_ACCESS_DENIED("You can only manage your own meal plans"),
     WEIGHT_ALREADY_MEASURED("You've already measured your weight today."),
     IMAGE_DELETE_FAILED("Failed to delete image"),
+    EMAIL_REGISTRATION_SUBJECT("Thank you for registration!"),
+    EMAIL_REGISTRATION_TEMPLATE("registration.ftlh"),
     MEAL_PLAN_OPERATION_DENIED("You can only manage your own meal plans");
 
     private final String message;

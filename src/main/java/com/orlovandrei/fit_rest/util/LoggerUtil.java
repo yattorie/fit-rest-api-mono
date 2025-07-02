@@ -9,4 +9,8 @@ public class LoggerUtil {
     public static void logError(String message, Throwable throwable) {
         logger.error(message, throwable);
     }
+
+    public static void logInfo(String message, Object... args) {
+        logger.info(message, args);
+    }
 }
