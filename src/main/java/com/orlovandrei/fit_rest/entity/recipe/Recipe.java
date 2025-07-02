@@ -14,8 +14,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 
-import java.io.Serializable;
-
 @Entity
 @Table(name = "recipes")
 @Getter
@@ -24,7 +22,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class Recipe implements Serializable {
+public class Recipe {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")

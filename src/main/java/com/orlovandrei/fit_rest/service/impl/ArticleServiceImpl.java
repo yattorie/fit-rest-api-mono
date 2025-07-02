@@ -16,8 +16,6 @@ import com.orlovandrei.fit_rest.repository.UserRepository;
 import com.orlovandrei.fit_rest.service.ArticleService;
 import com.orlovandrei.fit_rest.util.Messages;
 import lombok.RequiredArgsConstructor;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -100,7 +98,6 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     @Transactional(readOnly = true)
-    @Cacheable(value = "ArticleService::getById", key = "#id")
     public ArticleDto getById(Long id) {
         Article article = articleRepository.findById(id)
                 .orElseThrow(() -> new ArticleNotFoundException(Messages.ARTICLE_NOT_FOUND_BY_ID.getMessage() + id));
@@ -109,7 +106,6 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     @Transactional
-    @CacheEvict(value = "ArticleService::getById", key = "#id")
     public void delete(Long id) {
         if (!articleRepository.existsById(id)) {
             throw new ArticleNotFoundException(Messages.ARTICLE_NOT_FOUND_BY_ID.getMessage() + id);
