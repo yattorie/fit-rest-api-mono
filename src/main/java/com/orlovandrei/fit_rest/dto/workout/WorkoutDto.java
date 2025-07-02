@@ -1,6 +1,6 @@
 package com.orlovandrei.fit_rest.dto.workout;
 
-import com.orlovandrei.fit_rest.dto.exersice.ExerciseDto;
+import com.orlovandrei.fit_rest.dto.exercise.ExerciseDto;
 import com.orlovandrei.fit_rest.entity.workout.WorkoutDifficulty;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AccessLevel;
