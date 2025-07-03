@@ -10,6 +10,7 @@ import com.orlovandrei.fit_rest.exception.EmailAlreadyExistsException;
 import com.orlovandrei.fit_rest.exception.UserAlreadyExistsException;
 import com.orlovandrei.fit_rest.repository.UserRepository;
 import com.orlovandrei.fit_rest.security.JwtService;
+import com.orlovandrei.fit_rest.service.MailService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -46,6 +47,9 @@ class AuthServiceImplTest {
     @Mock
     private UserDetailsService userDetailsService;
 
+    @Mock
+    private MailService mailService;
+
     @InjectMocks
     private AuthServiceImpl authService;
 
@@ -70,6 +74,8 @@ class AuthServiceImplTest {
                         user.getEmail().equals("newuser@example.com") &&
                         user.getPassword().equals("encodedPassword") &&
                         user.getRole() == Role.ROLE_USER));
+
+        Mockito.verify(mailService).sendRegistrationEmail("newuser@example.com", "newuser");
     }
 
     @Test

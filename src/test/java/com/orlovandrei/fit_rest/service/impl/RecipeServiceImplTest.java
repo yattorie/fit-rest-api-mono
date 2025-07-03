@@ -69,7 +69,10 @@ class RecipeServiceImplTest {
         request.setFat(11.0);
         request.setCarbs(31.0);
 
-        Recipe recipe = Recipe.builder().id(5L).build();
+        Recipe recipe = Recipe.builder()
+                .id(5L)
+                .title("oldTitle")
+                .build();
         Mockito.when(recipeRepository.findById(5L)).thenReturn(Optional.of(recipe));
         Mockito.when(recipeRepository.save(any(Recipe.class))).thenReturn(recipe);
         Mockito.when(recipeMapper.toDto(any(Recipe.class))).thenReturn(new RecipeDto());

@@ -116,7 +116,11 @@ class ArticleServiceImplTest {
 
     @Test
     void update_success() {
-        Article article = Article.builder().id(5L).category(Category.builder().id(1L).build()).build();
+        Article article = Article.builder()
+                .id(5L)
+                .title("oldTitle")
+                .category(Category.builder().id(1L).build())
+                .build();
         UpdateArticleRequest request = new UpdateArticleRequest();
         request.setTitle("title");
         request.setContent("content");
