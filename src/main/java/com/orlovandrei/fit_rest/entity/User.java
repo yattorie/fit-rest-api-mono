@@ -1,8 +1,7 @@
-package com.orlovandrei.fit_rest.entity.user;
+package com.orlovandrei.fit_rest.entity;
 
-import com.orlovandrei.fit_rest.entity.article.Article;
-import com.orlovandrei.fit_rest.entity.recipe.Recipe;
-import com.orlovandrei.fit_rest.entity.workout.Workout;
+import com.orlovandrei.fit_rest.entity.enums.Gender;
+import com.orlovandrei.fit_rest.entity.enums.Role;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;

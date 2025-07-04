@@ -1,6 +1,6 @@
 package com.orlovandrei.fit_rest.service;
 
-import com.orlovandrei.fit_rest.entity.user.User;
+import com.orlovandrei.fit_rest.entity.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;

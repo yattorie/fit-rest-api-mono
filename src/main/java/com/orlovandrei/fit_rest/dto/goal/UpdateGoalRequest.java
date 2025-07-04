@@ -1,6 +1,6 @@
 package com.orlovandrei.fit_rest.dto.goal;
 
-import com.orlovandrei.fit_rest.entity.goal.GoalType;
+import com.orlovandrei.fit_rest.entity.enums.GoalType;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.NotBlank;

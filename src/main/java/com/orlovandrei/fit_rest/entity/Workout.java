@@ -1,16 +1,15 @@
-package com.orlovandrei.fit_rest.entity.goal;
+package com.orlovandrei.fit_rest.entity;
 
-import com.orlovandrei.fit_rest.entity.user.User;
+import com.orlovandrei.fit_rest.entity.enums.WorkoutDifficulty;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -20,37 +19,34 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 
-import java.time.LocalDate;
+import java.time.Duration;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
-@Table(name = "goals")
+@Table(name = "workouts")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class Goal {
+public class Workout {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     Long id;
 
-    @Column(name = "description", nullable = false)
-    String description;
+    @Column(name = "name")
+    String name;
 
-    @Column(name = "start_date",  nullable = false)
-    LocalDate startDate;
-
-    @Column(name = "end_date", nullable = false)
-    LocalDate endDate;
+    @Column(name = "duration")
+    Duration duration;
 
     @Enumerated(EnumType.STRING)
-    GoalType type;
+    WorkoutDifficulty difficulty;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
-    User user;
+    @Builder.Default
+    @OneToMany(mappedBy = "workout", cascade = CascadeType.ALL, orphanRemoval = true)
+    List<Exercise> exercises = new ArrayList<>();
 }
-
-

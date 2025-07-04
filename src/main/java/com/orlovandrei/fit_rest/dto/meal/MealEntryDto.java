@@ -1,6 +1,6 @@
 package com.orlovandrei.fit_rest.dto.meal;
 
-import com.orlovandrei.fit_rest.entity.meal.MealType;
+import com.orlovandrei.fit_rest.entity.enums.MealType;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AccessLevel;
 import lombok.Data;

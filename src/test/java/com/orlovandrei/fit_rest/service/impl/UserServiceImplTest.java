@@ -1,7 +1,7 @@
 package com.orlovandrei.fit_rest.service.impl;
 
-import com.orlovandrei.fit_rest.entity.user.Role;
-import com.orlovandrei.fit_rest.entity.user.User;
+import com.orlovandrei.fit_rest.entity.enums.Role;
+import com.orlovandrei.fit_rest.entity.User;
 import com.orlovandrei.fit_rest.exception.EmailAlreadyExistsException;
 import com.orlovandrei.fit_rest.exception.UserAlreadyExistsException;
 import com.orlovandrei.fit_rest.exception.UserNotFoundException;

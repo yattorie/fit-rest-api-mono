@@ -4,7 +4,7 @@ import com.orlovandrei.fit_rest.dto.mapper.RecipeMapper;
 import com.orlovandrei.fit_rest.dto.recipe.CreateRecipeRequest;
 import com.orlovandrei.fit_rest.dto.recipe.RecipeDto;
 import com.orlovandrei.fit_rest.dto.recipe.UpdateRecipeRequest;
-import com.orlovandrei.fit_rest.entity.recipe.Recipe;
+import com.orlovandrei.fit_rest.entity.Recipe;
 import com.orlovandrei.fit_rest.exception.ArticleNotFoundException;
 import com.orlovandrei.fit_rest.exception.RecipeAlreadyExistsException;
 import com.orlovandrei.fit_rest.exception.RecipeNotFoundException;

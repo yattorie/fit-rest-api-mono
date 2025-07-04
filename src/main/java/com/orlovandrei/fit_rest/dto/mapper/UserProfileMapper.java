@@ -1,7 +1,7 @@
 package com.orlovandrei.fit_rest.dto.mapper;
 
 import com.orlovandrei.fit_rest.dto.user.UserProfileDto;
-import com.orlovandrei.fit_rest.entity.user.User;
+import com.orlovandrei.fit_rest.entity.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 

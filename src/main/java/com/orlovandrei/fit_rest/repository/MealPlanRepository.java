@@ -1,6 +1,6 @@
 package com.orlovandrei.fit_rest.repository;
 
-import com.orlovandrei.fit_rest.entity.meal.MealPlan;
+import com.orlovandrei.fit_rest.entity.MealPlan;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

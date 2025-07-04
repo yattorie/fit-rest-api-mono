@@ -1,7 +1,7 @@
 package com.orlovandrei.fit_rest.service.impl;
 
-import com.orlovandrei.fit_rest.entity.article.Article;
-import com.orlovandrei.fit_rest.entity.recipe.Recipe;
+import com.orlovandrei.fit_rest.entity.Article;
+import com.orlovandrei.fit_rest.entity.Recipe;
 import com.orlovandrei.fit_rest.exception.ArticleNotFoundException;
 import com.orlovandrei.fit_rest.exception.RecipeNotFoundException;
 import com.orlovandrei.fit_rest.repository.ArticleRepository;

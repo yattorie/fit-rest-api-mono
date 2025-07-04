@@ -1,7 +1,7 @@
 package com.orlovandrei.fit_rest.dto.mapper;
 
 import com.orlovandrei.fit_rest.dto.article.ArticleDto;
-import com.orlovandrei.fit_rest.entity.article.Article;
+import com.orlovandrei.fit_rest.entity.Article;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 

@@ -4,7 +4,7 @@ import com.orlovandrei.fit_rest.dto.category.CategoryDto;
 import com.orlovandrei.fit_rest.dto.category.CreateCategoryRequest;
 import com.orlovandrei.fit_rest.dto.category.UpdateCategoryRequest;
 import com.orlovandrei.fit_rest.dto.mapper.CategoryMapper;
-import com.orlovandrei.fit_rest.entity.category.Category;
+import com.orlovandrei.fit_rest.entity.Category;
 import com.orlovandrei.fit_rest.exception.CategoryAlreadyExistsException;
 import com.orlovandrei.fit_rest.exception.CategoryNotFoundException;
 import com.orlovandrei.fit_rest.repository.CategoryRepository;

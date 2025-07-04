@@ -1,6 +1,6 @@
 package com.orlovandrei.fit_rest.repository;
 
-import com.orlovandrei.fit_rest.entity.user.User;
+import com.orlovandrei.fit_rest.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

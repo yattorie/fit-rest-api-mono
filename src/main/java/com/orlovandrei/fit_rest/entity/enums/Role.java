@@ -1,4 +1,4 @@
-package com.orlovandrei.fit_rest.entity.user;
+package com.orlovandrei.fit_rest.entity.enums;
 
 public enum Role {
     ROLE_USER,

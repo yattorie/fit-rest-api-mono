@@ -1,6 +1,6 @@
 package com.orlovandrei.fit_rest.repository;
 
-import com.orlovandrei.fit_rest.entity.article.Comment;
+import com.orlovandrei.fit_rest.entity.Comment;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

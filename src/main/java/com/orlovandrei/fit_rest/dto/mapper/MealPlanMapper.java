@@ -2,8 +2,8 @@ package com.orlovandrei.fit_rest.dto.mapper;
 
 import com.orlovandrei.fit_rest.dto.meal.MealEntryDto;
 import com.orlovandrei.fit_rest.dto.meal.MealPlanDto;
-import com.orlovandrei.fit_rest.entity.meal.MealEntry;
-import com.orlovandrei.fit_rest.entity.meal.MealPlan;
+import com.orlovandrei.fit_rest.entity.MealEntry;
+import com.orlovandrei.fit_rest.entity.MealPlan;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 

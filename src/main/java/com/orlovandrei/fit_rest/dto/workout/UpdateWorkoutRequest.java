@@ -1,7 +1,7 @@
 package com.orlovandrei.fit_rest.dto.workout;
 
 import com.orlovandrei.fit_rest.dto.exercise.CreateExerciseRequest;
-import com.orlovandrei.fit_rest.entity.workout.WorkoutDifficulty;
+import com.orlovandrei.fit_rest.entity.enums.WorkoutDifficulty;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

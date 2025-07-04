@@ -1,7 +1,7 @@
 package com.orlovandrei.fit_rest.security;
 
 import com.orlovandrei.fit_rest.dto.auth.TokenPair;
-import com.orlovandrei.fit_rest.entity.user.User;
+import com.orlovandrei.fit_rest.entity.User;
 import com.orlovandrei.fit_rest.repository.UserRepository;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;

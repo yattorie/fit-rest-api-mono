@@ -1,7 +1,7 @@
 package com.orlovandrei.fit_rest.dto.mapper;
 
 import com.orlovandrei.fit_rest.dto.recipe.RecipeDto;
-import com.orlovandrei.fit_rest.entity.recipe.Recipe;
+import com.orlovandrei.fit_rest.entity.Recipe;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")

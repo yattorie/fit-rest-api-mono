@@ -1,8 +1,10 @@
-package com.orlovandrei.fit_rest.entity.weight;
+package com.orlovandrei.fit_rest.entity;
 
-import com.orlovandrei.fit_rest.entity.user.User;
+import com.orlovandrei.fit_rest.entity.enums.GoalType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -21,27 +23,34 @@ import lombok.experimental.FieldDefaults;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "weight_entries")
+@Table(name = "goals")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class WeightEntry {
+public class Goal {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     Long id;
 
-    @Column(name = "date")
-    LocalDate date;
+    @Column(name = "description", nullable = false)
+    String description;
 
-    @Column(name = "value")
-    Double value;
+    @Column(name = "start_date",  nullable = false)
+    LocalDate startDate;
+
+    @Column(name = "end_date", nullable = false)
+    LocalDate endDate;
+
+    @Enumerated(EnumType.STRING)
+    GoalType type;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     User user;
 }
+
 

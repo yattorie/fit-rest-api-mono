@@ -1,6 +1,5 @@
-package com.orlovandrei.fit_rest.entity.article;
+package com.orlovandrei.fit_rest.entity;
 
-import com.orlovandrei.fit_rest.entity.user.User;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;

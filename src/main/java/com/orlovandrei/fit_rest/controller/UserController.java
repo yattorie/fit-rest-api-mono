@@ -4,7 +4,7 @@ import com.orlovandrei.fit_rest.dto.mapper.UserMapper;
 import com.orlovandrei.fit_rest.dto.user.CreateUserRequest;
 import com.orlovandrei.fit_rest.dto.user.UserResponse;
 import com.orlovandrei.fit_rest.dto.user.UpdateUserRequest;
-import com.orlovandrei.fit_rest.entity.user.User;
+import com.orlovandrei.fit_rest.entity.User;
 import com.orlovandrei.fit_rest.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;

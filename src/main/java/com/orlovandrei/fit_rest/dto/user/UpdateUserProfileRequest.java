@@ -1,6 +1,6 @@
 package com.orlovandrei.fit_rest.dto.user;
 
-import com.orlovandrei.fit_rest.entity.user.Gender;
+import com.orlovandrei.fit_rest.entity.enums.Gender;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;

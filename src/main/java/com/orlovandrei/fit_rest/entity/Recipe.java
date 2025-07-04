@@ -1,4 +1,4 @@
-package com.orlovandrei.fit_rest.entity.recipe;
+package com.orlovandrei.fit_rest.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
