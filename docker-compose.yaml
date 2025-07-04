@@ -1,22 +1,18 @@
 version: '3.8'
 
-volumes:
-  pg_fitsphere:
-  redis_data:
-  minio_data:
-
 services:
-  fitsphere:
+  postgres:
     image: postgres
     restart: always
-    environment:
-      - POSTGRES_USER=${POSTGRES_USERNAME}
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-      - POSTGRES_DB=${POSTGRES_DATABASE}
+    container_name: postgres
+    env_file:
+      - ./.env
     volumes:
-      - pg_fitsphere:/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql/data
     ports:
-      - "127.0.0.1:5442:5432"
+      - "127.0.0.1:5432:5432"
+    networks:
+      - fit-network
 
   redis:
     image: redis:latest
@@ -26,6 +22,8 @@ services:
       - redis_data:/data
     ports:
       - "127.0.0.1:6379:6379"
+    networks:
+      - fit-network
 
   minio:
     image: minio/minio:latest
@@ -34,9 +32,36 @@ services:
     ports:
       - "127.0.0.1:9000:9000"
       - "127.0.0.1:9001:9001"
-    environment:
-      - MINIO_ROOT_USER=${MINIO_ROOT_USER}
-      - MINIO_ROOT_PASSWORD=${MINIO_ROOT_PASSWORD}
+    env_file:
+      - ./.env
     command: server --console-address ":9001" /data
     volumes:
       - minio_data:/data
+    networks:
+      - fit-network
+
+  app:
+    restart: always
+    container_name: app
+    build: .
+    ports:
+      - "127.0.0.1:8080:8080"
+    depends_on:
+      - postgres
+      - redis
+      - minio
+    env_file:
+      - ./.env
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/${POSTGRES_DATABASE}?currentSchema=${POSTGRES_SCHEMA}
+    networks:
+      - fit-network
+
+volumes:
+  postgres_data:
+  redis_data:
+  minio_data:
+
+networks:
+  fit-network:
+    driver: bridge
