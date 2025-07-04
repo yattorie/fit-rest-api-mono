@@ -52,15 +52,15 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(
                         req -> req
-                                .requestMatchers("/api/auth/**",
+                                .requestMatchers("/api/v1/auth/**",
                                         "/v3/api-docs/**",
                                         "/swagger-ui/**",
                                         "/swagger-ui.html")
                                 .permitAll()
                                 .requestMatchers(
-                                        "/api/articles/**",
-                                        "/api/recipes/**",
-                                        "/api/workouts/**"
+                                        "/api/v1/articles/**",
+                                        "/api/v1/recipes/**",
+                                        "/api/v1/workouts/**"
                                 ).permitAll()
                                 .anyRequest().authenticated()
                 )

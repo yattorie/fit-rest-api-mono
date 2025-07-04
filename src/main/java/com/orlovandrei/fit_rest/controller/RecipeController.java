@@ -26,7 +26,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/recipes")
+@RequestMapping("/api/v1/recipes")
 @Tag(name = "Recipe Controller", description = "Operations for managing recipes")
 public class RecipeController {
 

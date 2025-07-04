@@ -26,7 +26,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/goals")
+@RequestMapping("/api/v1/goals")
 @Tag(name = "Goal Controller", description = "Operations for managing fitness goals")
 public class GoalController {
 

@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/profile")
+@RequestMapping("/api/v1/profile")
 @Tag(name = "User Profile Controller", description = "Operations for managing user profiles")
 public class UserProfileController {
 

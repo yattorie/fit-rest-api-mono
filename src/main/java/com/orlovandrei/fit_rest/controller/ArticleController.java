@@ -28,7 +28,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/articles")
+@RequestMapping("/api/v1/articles")
 @Tag(name = "Article Controller", description = "Operations related to articles")
 public class ArticleController {
     

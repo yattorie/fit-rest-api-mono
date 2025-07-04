@@ -21,7 +21,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/weight")
+@RequestMapping("/api/v1/weight")
 @Tag(name = "Weight Controller", description = "Operations for managing weight tracking")
 public class WeightController {
 

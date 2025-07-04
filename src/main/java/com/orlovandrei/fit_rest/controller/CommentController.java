@@ -26,7 +26,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/articles")
+@RequestMapping("/api/v1/articles")
 @Tag(name = "Comment Controller", description = "Operations for managing article comments")
 public class CommentController {
 

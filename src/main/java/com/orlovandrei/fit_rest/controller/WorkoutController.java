@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/workouts")
+@RequestMapping("/api/v1/workouts")
 @Tag(name = "Workout Controller", description = "Operations for managing workout programs")
 public class WorkoutController {
 
