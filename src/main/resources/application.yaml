@@ -18,7 +18,7 @@ spring:
       port: 6379
       password:
   datasource:
-    url: jdbc:postgresql://${HOST}:5442/${POSTGRES_DATABASE}?currentSchema=${POSTGRES_SCHEMA}
+    url: jdbc:postgresql://${HOST}:5432/${POSTGRES_DATABASE}?currentSchema=${POSTGRES_SCHEMA}
     username: ${POSTGRES_USERNAME}
     password: ${POSTGRES_PASSWORD}
     driverClassName: org.postgresql.Driver
@@ -52,7 +52,7 @@ security:
 springdoc:
   override-with-generic-response: false
 minio:
-  url: http://localhost:9000
+  url: ${MINIO_URL}
   access-key: ${MINIO_ROOT_USER}
   secret-key: ${MINIO_ROOT_PASSWORD}
-  bucket: fit-bucket
+  bucket: ${MINIO_BUCKET}
